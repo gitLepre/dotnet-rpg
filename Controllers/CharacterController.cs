@@ -29,7 +29,7 @@ namespace dotnet_rpg.Controllers
             return Ok(await _characterService.GetCharacterById(id));
         }
 
-        [HttpPost]
+        [HttpPost("")]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacter(PostCharacterDto character)
         {
             return Ok(await _characterService.AddCharacter(character));
@@ -44,7 +44,7 @@ namespace dotnet_rpg.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<Object>>> DeleteCharacter(int id)
         {
             var response = await _characterService.DeleteCharacter(id);

@@ -8,9 +8,9 @@ namespace dotnet_rpg.Services.CharacterService
 
     public class CharacterService : ICharacterService
     {
-        private static List<Character> characters = new List<Character>{
-            new Character(),
-            new Character{Id = 1, Name = "Sam"}
+        private static List<Character> characters = new List<Character>
+        {
+
         };
         private readonly IMapper _mapper;
 
@@ -23,7 +23,17 @@ namespace dotnet_rpg.Services.CharacterService
         {
             var serviceResponse = new ServiceResponse<GetCharacterDto>();
             var character = _mapper.Map<Character>(newCharacter);
-            character.Id = characters.Max(c => c.Id) + 1;
+            try
+            {
+                character.Id = characters.Max(c => c.Id) + 1;
+
+            }
+            catch (Exception ex)
+            {
+                character.Id = 0;
+
+            }
+
             characters.Add(character);
             serviceResponse.Data = _mapper.Map<GetCharacterDto>(_mapper.Map<Character>(character));
             return serviceResponse;
